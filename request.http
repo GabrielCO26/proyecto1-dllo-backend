@@ -1,0 +1,152 @@
+@url = http://localhost:8080
+
+
+#No es necesario tener una DB con datos para extraer el token, los token de prueba en cada endpoint ya son tokens validos.
+
+
+######### Users
+### Post user (Registro)
+POST {{url}}/api/users/createUser
+Content-Type: application/json
+
+{
+  "nombre": "jeda",
+  "correo": "jeda@gmail.com",
+  "contraseña": "123456",
+  "permisos": {
+    "crearLibros": false,
+    "modificarUsuarios": true,
+    "modificarLibros": false,
+    "inhabilitarUsuarios": true,
+    "inhabilitarLibros": false
+  }
+}
+
+### Get user (Login)
+GET {{url}}/api/users/getUser
+Content-Type: application/json
+
+{
+  "correo": "admin@gmail.com",
+  "contraseña": "123456",
+  "allEntries": false
+}
+
+### Update user (Usuario a sí mismo)
+PATCH {{url}}/api/users/updateUser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJnYWNvQGdtYWlsLmNvbSIsInBlcm1pc29zIjp7ImNyZWFyTGlicm9zIjp0cnVlLCJtb2RpZmljYXJVc3VhcmlvcyI6ZmFsc2UsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6ZmFsc2UsImluaGFiaWxpdGFyTGlicm9zIjp0cnVlfSwiaWF0IjoxNzQ2ODUyMjc5fQ.EOdrHnyZZjG962BnOMwGyx8DCo5x76fkmDEV8A9ynIs
+Content-Type: application/json
+
+{
+  "correo": "gaco@gmail.com",
+  "nombre": "GooGooGaGa",
+  "contraseña": "NuevaContraseña"
+}
+
+### Update user (Permiso Modificar)
+PATCH {{url}}/api/users/updateUser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhZG1pbkBnbWFpbC5jb20iLCJwZXJtaXNvcyI6eyJjcmVhckxpYnJvcyI6dHJ1ZSwibW9kaWZpY2FyVXN1YXJpb3MiOnRydWUsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJMaWJyb3MiOnRydWV9LCJpYXQiOjE3NDY4NTE5MzN9.K45rkxi_WiSVNAxkQGkVfVv-qDEIuiUN9QCDXHmIRlo
+Content-Type: application/json
+
+{
+  "correo": "prueba@gmail.com",
+  "nombre": "pruebaEditado",
+  "contraseña": "NuevaContraseñaPrueba"
+}
+
+### Delete user (Usuario a sí mismo)
+DELETE {{url}}/api/users/deleteUser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJqZWRhQGdtYWlsLmNvbSIsInBlcm1pc29zIjp7ImNyZWFyTGlicm9zIjpmYWxzZSwibW9kaWZpY2FyVXN1YXJpb3MiOnRydWUsIm1vZGlmaWNhckxpYnJvcyI6ZmFsc2UsImluaGFiaWxpdGFyVXN1YXJpb3MiOmZhbHNlLCJpbmhhYmlsaXRhckxpYnJvcyI6ZmFsc2V9LCJpYXQiOjE3NDY4NTM5NDl9.8mH84pxS8M4fp5Y-R9rTtAt5nIbkwH6a-HFv6-nt5ac
+Content-Type: application/json
+
+{
+  "correo": "jeda@gmail.com"
+}
+
+### Delete user (Permiso Inhabilitar)
+DELETE {{url}}/api/users/deleteUser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhZG1pbkBnbWFpbC5jb20iLCJwZXJtaXNvcyI6eyJjcmVhckxpYnJvcyI6dHJ1ZSwibW9kaWZpY2FyVXN1YXJpb3MiOnRydWUsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJMaWJyb3MiOnRydWV9LCJpYXQiOjE3NDY4Mjg3OTV9.THTRa6X9W8WA4KKdcl_DaDZbSyy2Eenqmd2qHzZ5DBg
+Content-Type: application/json
+
+{
+  "correo": "prueba@gmail.com"
+}
+
+
+######### Books
+### Post book
+POST {{url}}/api/books/createBook
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhZG1pbkBnbWFpbC5jb20iLCJwZXJtaXNvcyI6eyJjcmVhckxpYnJvcyI6dHJ1ZSwibW9kaWZpY2FyVXN1YXJpb3MiOnRydWUsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJMaWJyb3MiOnRydWV9LCJpYXQiOjE3NDY4Mjc1MjF9.krQJHhtp61hFxtuZHFQhD1H5BcadALszrX7f9ViUse8
+Content-Type: application/json
+
+{
+  "titulo": "La casa de los espiritus",
+  "autor": " Isabel Allende",
+  "genero": "Realismo mágico",
+  "editorial": "Plaza & Janés",
+  "fechaPublicacion": "1982-06-05"
+}
+
+### Get book by id
+GET {{url}}/api/books/getBookById/681ec510983ec8fec3483e32
+Content-Type: application/json
+
+{
+  "allEntries": false
+}
+
+### Get all books (No filters and allEntries = true)
+GET {{url}}/api/books/getBooksByFilters
+Content-Type: application/json
+
+{
+  "allEntries": true
+}
+
+### Get books by filters (Some filters)
+GET {{url}}/api/books/getBooksByFilters/?genero=Realismo mágico&disponible=true
+Content-Type: application/json
+
+{
+  "allEntries": false
+}
+
+### Update book info
+PATCH {{url}}/api/books/updateBookInfo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJnYWNvQGdtYWlsLmNvbSIsInBlcm1pc29zIjp7ImNyZWFyTGlicm9zIjp0cnVlLCJtb2RpZmljYXJVc3VhcmlvcyI6ZmFsc2UsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6ZmFsc2UsImluaGFiaWxpdGFyTGlicm9zIjp0cnVlfSwiaWF0IjoxNzQ2OTAzODgyfQ._DEqqbUwUmAS3TWL18-XiVJfRfjPgPHgWORs9Aye8Q8
+Content-Type: application/json
+
+{
+  "bookId": "681ec510983ec8fec3483e32",
+  "titulo": "La casa de los sus",
+  "autor": " Gaco",
+  "editorial": "Uninorte",
+  "fechaPublicacion": "2025-06-05"
+}
+
+### Delete book (Con permiso )
+DELETE {{url}}/api/books/deleteBook/681ea68583a15421706c4d2f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJhZG1pbkBnbWFpbC5jb20iLCJwZXJtaXNvcyI6eyJjcmVhckxpYnJvcyI6dHJ1ZSwibW9kaWZpY2FyVXN1YXJpb3MiOnRydWUsIm1vZGlmaWNhckxpYnJvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJVc3VhcmlvcyI6dHJ1ZSwiaW5oYWJpbGl0YXJMaWJyb3MiOnRydWV9LCJpYXQiOjE3NDY4MzkyMzh9.z1CWj6oNWvIUwM0tOBmgx9Td77uaWhjm5SYH9H24mT0
+Content-Type: application/json
+
+### Delete book (Sin permiso )
+DELETE {{url}}/api/books/deleteBook/681ea68583a15421706c4d2f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJwcnVlYmFAZ21haWwuY29tIiwicGVybWlzb3MiOnsiY3JlYXJMaWJyb3MiOmZhbHNlLCJtb2RpZmljYXJVc3VhcmlvcyI6ZmFsc2UsIm1vZGlmaWNhckxpYnJvcyI6ZmFsc2UsImluaGFiaWxpdGFyVXN1YXJpb3MiOmZhbHNlLCJpbmhhYmlsaXRhckxpYnJvcyI6ZmFsc2V9LCJpYXQiOjE3NDY4NDA0NzN9.LurI1OiY8Fxn9DlYjIV_DskoMkb-byo876XnLaPWyd4
+Content-Type: application/json
+
+### Prestar libro
+POST {{url}}/api/books/lendBook/681ec510983ec8fec3483e32
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJwcnVlYmFAZ21haWwuY29tIiwicGVybWlzb3MiOnsiY3JlYXJMaWJyb3MiOmZhbHNlLCJtb2RpZmljYXJVc3VhcmlvcyI6ZmFsc2UsIm1vZGlmaWNhckxpYnJvcyI6ZmFsc2UsImluaGFiaWxpdGFyVXN1YXJpb3MiOmZhbHNlLCJpbmhhYmlsaXRhckxpYnJvcyI6ZmFsc2V9LCJpYXQiOjE3NDY4NDA0NzN9.LurI1OiY8Fxn9DlYjIV_DskoMkb-byo876XnLaPWyd4
+Content-Type: application/json
+
+{
+  "userId": "681ea61d83a15421706c4d27",
+  "reservationDate": "2023-11-09",
+  "returnDate": "2023-11-12"
+}
+
+### Devolver libro
+POST {{url}}/api/books/returnBook/681ec510983ec8fec3483e32
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3JyZW8iOiJwcnVlYmFAZ21haWwuY29tIiwicGVybWlzb3MiOnsiY3JlYXJMaWJyb3MiOmZhbHNlLCJtb2RpZmljYXJVc3VhcmlvcyI6ZmFsc2UsIm1vZGlmaWNhckxpYnJvcyI6ZmFsc2UsImluaGFiaWxpdGFyVXN1YXJpb3MiOmZhbHNlLCJpbmhhYmlsaXRhckxpYnJvcyI6ZmFsc2V9LCJpYXQiOjE3NDY4NDA0NzN9.LurI1OiY8Fxn9DlYjIV_DskoMkb-byo876XnLaPWyd4
+
+
