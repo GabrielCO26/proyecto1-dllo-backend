@@ -1,4 +1,4 @@
-import { createBookAction, deleteBookAction, readBookByIdAction, readBooksByFilterAction } from "./book.actions";
+import { createBookAction, deleteBookAction, readBookByIdAction, readBooksByFilterAction, updateBookInfoAction } from "./book.actions";
 import { LibroType} from "./book.model";
 
 
@@ -17,6 +17,11 @@ async function ReadBooksByFiltersController(filters: any, allEntries: boolean): 
     return filteredBooks;
 }
 
+async function UpdateBookInfoController(id: string, bookUpdateData: any): Promise<LibroType> {
+  const updatedBook = await updateBookInfoAction(id, bookUpdateData);
+  return updatedBook;
+}
+
 async function DeleteBookController(id: string): Promise<LibroType> {
   const deletedBook = await deleteBookAction(id);
   if (!deletedBook) {
@@ -25,4 +30,4 @@ async function DeleteBookController(id: string): Promise<LibroType> {
   return deletedBook;
 }
 
-export {CreateBookController, DeleteBookController, ReadBookByIdController, ReadBooksByFiltersController};
+export {CreateBookController, DeleteBookController, ReadBookByIdController, ReadBooksByFiltersController, UpdateBookInfoController};

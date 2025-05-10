@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { authenticateToken, AuthenticatedRequest } from '../auth.middleware';
-import { CreateBookController, DeleteBookController, ReadBookByIdController, ReadBooksByFiltersController } from './book.controller';
+import { CreateBookController, DeleteBookController, ReadBookByIdController, ReadBooksByFiltersController, UpdateBookInfoController} from './book.controller';
 
 const bookRoutes = Router();
 
@@ -48,6 +48,20 @@ async function getBooksByFilters(req: Request, res: Response) {
   }
 }
 
+async function updateBookInfo(req: AuthenticatedRequest, res: Response) {
+  try{
+    if (!req.user?.permisos.modificarLibros){
+      return res.status(403).json({message: 'No tienes permiso para modificar libros'});
+    }
+    const {id, ...bookUpdateData} = req.body;
+    const updatedBook = await UpdateBookInfoController(id, bookUpdateData);
+    res.status(200).json({message: 'Libro actualizado exitosamente', updatedBook});
+  } catch (error: any){
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 async function deleteBook(req: AuthenticatedRequest, res: Response) {
   try{
     const {id} = req.body;
@@ -61,12 +75,11 @@ async function deleteBook(req: AuthenticatedRequest, res: Response) {
     res.status(500).json({ message: error.message });
   }
 }
-
-
-
+//endpoints
 bookRoutes.post('/createBook', authenticateToken, CreateBook);
 bookRoutes.get('/getBookById/:id', getBookById);
-bookRoutes.delete('/deleteBook', authenticateToken, deleteBook);
 bookRoutes.get('/getBooksByFilters', getBooksByFilters);
+bookRoutes.patch('/updateBookInfo', authenticateToken, updateBookInfo);
+bookRoutes.delete('/deleteBook', authenticateToken, deleteBook);
 
 export default bookRoutes;

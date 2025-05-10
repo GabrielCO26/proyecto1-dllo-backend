@@ -40,6 +40,21 @@ async function readBooksByFilterAction(filters: any, allEntries: boolean) {
   }
 }
 
+async function updateBookInfoAction(id: string, bookUpdateData: any) {
+  try {
+    if ('activo' in bookUpdateData || 'disponible' in bookUpdateData || 'historialReservas' in bookUpdateData) {
+      throw new Error('No se puede modificar el estado de activo, disponible o historialReservas');
+    }
+    const updatedBook = await LibroModel.findByIdAndUpdate(id, bookUpdateData, { new: true });
+    if (!updatedBook) {
+      throw new Error('No se encontró libro con el id proporcionado');
+    }
+    return updatedBook;
+  } catch (error: any) {
+    throw new Error(`Error actualizando libro: ${error.message}`);
+  }
+}
+
 async function deleteBookAction(id: string) {
   try {
     const deletedBook = await LibroModel.findByIdAndUpdate(id , { activo: false }, { new: true });
@@ -49,4 +64,4 @@ async function deleteBookAction(id: string) {
   }
 }
 
-export {createBookAction, deleteBookAction, readBookByIdAction, readBooksByFilterAction};
+export {createBookAction, deleteBookAction, readBookByIdAction, readBooksByFilterAction, updateBookInfoAction};
