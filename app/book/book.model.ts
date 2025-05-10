@@ -1,6 +1,5 @@
 import { model, Schema, Types } from "mongoose";
 
-// DECLARE RESERVATION HISTORY TYPE
 type HistorialReservaType = {
   usuarioId: Types.ObjectId;
   nombreUsuario: string;
@@ -8,7 +7,6 @@ type HistorialReservaType = {
   fechaEntrega: Date;
 };
 
-// DECLARE MODEL TYPE
 type LibroType = {
   titulo: string;
   autor?: string;
@@ -19,7 +17,6 @@ type LibroType = {
   historialReservas: HistorialReservaType[];
   activo: boolean;
 };
-
 
 // esquemas de mongoose
 const HistorialReservaSchema = new Schema<HistorialReservaType>({
