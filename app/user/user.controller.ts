@@ -13,7 +13,7 @@ async function ReadUserController(correo: string, contraseña: string, allEntrie
 }
 
 async function UpdateUserController(correo: string, nombre: string, contraseña: string, modificarUsuario: boolean): Promise<UserType> {
-  const updatedUser = await updateUserAction({correo, nombre, contraseña}, modificarUsuario);
+  const updatedUser = await updateUserAction(correo, nombre, contraseña, modificarUsuario);
   return updatedUser;
 }
 

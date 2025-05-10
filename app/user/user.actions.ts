@@ -35,9 +35,8 @@ async function readUserAction(correo: string, contraseña: string, allEntries: B
   }
 }
 
-async function updateUserAction(userData: {correo: string, nombre: string, contraseña: string}, modificarUsuario: boolean) {
+async function updateUserAction(correo: string, nombre: string, contraseña: string, modificarUsuario: boolean) {
   try {
-    const {correo, nombre, contraseña} = userData;
     const filter = modificarUsuario ? {correo} : {correo, activo: true}; // Si el usuario tiene permiso para modificar usuarios los puede modificar aún sí no están activos
     const updatedUser = await UserModel.findOneAndUpdate(filter, {nombre, contraseña}, {new: true});
     if (!updatedUser) {
