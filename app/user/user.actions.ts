@@ -35,13 +35,30 @@ async function readUserAction(correo: string, contraseña: string, allEntries: B
   }
 }
 
+async function updateUserAction(userData: {correo: string, nombre: string, contraseña: string}, modificarUsuario: boolean) {
+  try {
+    const {correo, nombre, contraseña} = userData;
+    const filter = modificarUsuario ? {correo} : {correo, activo: true}; // Si el usuario tiene permiso para modificar usuarios los puede modificar aún sí no están activos
+    const updatedUser = await UserModel.findOneAndUpdate(filter, {nombre, contraseña}, {new: true});
+    if (!updatedUser) {
+      throw new Error('No se encontró usuario con el correo proporcionado');
+    }
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Error durante la actualización del usuario: ${error.message}`);
+  }
+}
+
 async function deleteUserAction(correo: string) {
   try{
     const deletedUser = await UserModel.findOneAndUpdate({ correo }, {activo: false}, {new: true});
+    if (!deletedUser) {
+      throw new Error('No se encontró usuario con el correo proporcionado');
+    }
     return deletedUser;
   } catch (error: any){
     throw new Error('Error durante la inhabilitación del usuario')
   } 
 }
 
-export { createUserAction, readUserAction, deleteUserAction };
+export { createUserAction, readUserAction, deleteUserAction, updateUserAction };

@@ -1,4 +1,4 @@
-import {createUserAction, readUserAction, deleteUserAction} from './user.actions';
+import {createUserAction, readUserAction, deleteUserAction, updateUserAction} from './user.actions';
 import { UserType } from './user.model';
 
 
@@ -12,12 +12,14 @@ async function ReadUserController(correo: string, contraseña: string, allEntrie
   return loggedInUser;
 }
 
+async function UpdateUserController(correo: string, nombre: string, contraseña: string, modificarUsuario: boolean): Promise<UserType> {
+  const updatedUser = await updateUserAction({correo, nombre, contraseña}, modificarUsuario);
+  return updatedUser;
+}
+
 async function DeleteUserController(correo: string): Promise <UserType> {
   const deletedUser = await deleteUserAction(correo);
-  if (!deletedUser) {
-    throw new Error('No se encontró usuario con el correo proporcionado');
-  }
   return deletedUser;
 }
 
-export { CreateUserController, ReadUserController, DeleteUserController };
+export { CreateUserController, ReadUserController, DeleteUserController, UpdateUserController };

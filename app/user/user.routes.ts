@@ -1,6 +1,6 @@
 import {Router, Request, Response} from 'express';
-import { CreateUserController, ReadUserController, DeleteUserController } from './user.controller';
 import { AuthenticatedRequest, authenticateToken } from '../auth.middleware';
+import { CreateUserController, ReadUserController, DeleteUserController, UpdateUserController } from './user.controller';
 
 const userRoutes = Router();
 
@@ -28,6 +28,21 @@ async function getUser(req: Request, res: Response) {
   }
 }
 
+// Update user
+async function UpdateUser(req: AuthenticatedRequest, res: Response) {
+  try {
+    const {correo, nombre, contraseña} = req.body;
+    if (req.user?.correo !== correo && !req.user?.permisos.modificarUsuarios){
+      return res.status(403).json({message: 'No tienes permiso para editar a usuarios'});
+    }
+    const modificarUsuarios = req.user?.permisos.modificarUsuarios; // Si el usuario tiene permiso para modificar usuarios los puede modificar aún sí no están activos
+    const updatedUser = await UpdateUserController(correo, nombre, contraseña, modificarUsuarios);
+    res.status(200).json({message: 'Usuario editado exitosamente', updatedUser});
+  } catch (error: any) {
+    res.status(500).json({message: error.message})
+  }
+}
+
 // Inhabilitar usuario
 async function DeleteUser(req: AuthenticatedRequest, res: Response) {
   try{
@@ -45,6 +60,7 @@ async function DeleteUser(req: AuthenticatedRequest, res: Response) {
 //endpoints
 userRoutes.post('/createUser', CreateUser);
 userRoutes.get('/getUser', getUser);
+userRoutes.patch('/updateUser', authenticateToken, UpdateUser);
 userRoutes.delete('/deleteUser', authenticateToken, DeleteUser)
 
 export default userRoutes;
